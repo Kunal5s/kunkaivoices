@@ -2,6 +2,7 @@
 import { Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { LANGUAGES } from "@/lib/constants";
 
 const Footer = () => {
   return (
@@ -15,7 +16,7 @@ const Footer = () => {
               <span className="text-xl font-bold text-gradient">VocalAI</span>
             </div>
             <p className="text-white/70 text-sm mb-4">
-              Transform your content with cutting-edge AI voice technology. Support for 50+ languages, 40+ premium voices, and advanced voice customization features.
+              Experience our next-generation AI voice technology with 50+ languages, 40+ premium voices, and cutting-edge voice customization. Create human-like speech for content, gaming, business, and more.
             </p>
             <div className="flex space-x-4">
               <Button
@@ -70,6 +71,16 @@ const Footer = () => {
                   Audio Editing
                 </Link>
               </li>
+              <li>
+                <Link to="/features" className="text-white/70 hover:text-white text-sm transition-colors">
+                  Multi-language Support
+                </Link>
+              </li>
+              <li>
+                <Link to="/features" className="text-white/70 hover:text-white text-sm transition-colors">
+                  Real-time Voice Modulation
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -99,6 +110,16 @@ const Footer = () => {
               <li>
                 <Link to="/contact" className="text-white/70 hover:text-white text-sm transition-colors">
                   Contact
+                </Link>
+              </li>
+              <li>
+                <Link to="/partners" className="text-white/70 hover:text-white text-sm transition-colors">
+                  Partners
+                </Link>
+              </li>
+              <li>
+                <Link to="/investors" className="text-white/70 hover:text-white text-sm transition-colors">
+                  Investors
                 </Link>
               </li>
             </ul>
@@ -132,13 +153,37 @@ const Footer = () => {
                   Support Center
                 </Link>
               </li>
+              <li>
+                <Link to="/api-docs" className="text-white/70 hover:text-white text-sm transition-colors">
+                  API Documentation
+                </Link>
+              </li>
+              <li>
+                <Link to="/faq" className="text-white/70 hover:text-white text-sm transition-colors">
+                  FAQs
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
+        <div className="mt-12 pt-6 border-t border-white/10">
+          <div className="text-white/70 text-sm mb-6">
+            <h5 className="font-medium mb-2">Available Languages</h5>
+            <div className="flex flex-wrap gap-2">
+              {LANGUAGES.slice(0, 15).map((lang) => (
+                <span key={lang.id} className="inline-flex items-center" title={lang.name}>
+                  {lang.flag}
+                </span>
+              ))}
+              <span className="text-white/50">+{LANGUAGES.length - 15} more</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="pt-4 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
           <p className="text-white/50 text-sm">
-            © 2024 VocalAI. All rights reserved.
+            © 2024 VocalAI. All rights reserved. Powered by ElevenLabs AI technology.
           </p>
           <div className="mt-4 md:mt-0">
             <ul className="flex space-x-6">
@@ -148,13 +193,18 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/privacy" className="text-white/50 hover:text-white text-sm transition-colors">
+                <Link to="/privacy" className="text-white/70 hover:text-white text-sm transition-colors">
                   Privacy
                 </Link>
               </li>
               <li>
                 <Link to="/cookies" className="text-white/50 hover:text-white text-sm transition-colors">
                   Cookies
+                </Link>
+              </li>
+              <li>
+                <Link to="/accessibility" className="text-white/50 hover:text-white text-sm transition-colors">
+                  Accessibility
                 </Link>
               </li>
             </ul>
@@ -166,4 +216,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
