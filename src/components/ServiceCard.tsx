@@ -1,6 +1,6 @@
 
 import { LucideIcon } from "lucide-react";
-import { Mic, MessageSquareText, Copy, Bot, WaveSine, Album } from "lucide-react";
+import { Mic, MessageSquareText, Copy, Bot, Waves, Album } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ServiceCardProps {
@@ -16,7 +16,7 @@ const iconComponents: Record<string, LucideIcon> = {
   "message-square-text": MessageSquareText,
   copy: Copy,
   bot: Bot,
-  waveform: WaveSine,
+  waveform: Waves,
   album: Album,
 };
 
