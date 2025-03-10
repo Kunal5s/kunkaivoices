@@ -94,7 +94,7 @@ const VoiceGenerator = () => {
             >
               URL
             </TabsTrigger>
-          </Tabs>
+          </TabsList>
 
           <TabsContent value="text" className="mt-4">
             <TextInput
