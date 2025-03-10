@@ -2,21 +2,38 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { LANGUAGES, MODELS, ALL_VOICES } from "@/lib/constants";
+import { Slider } from "@/components/ui/slider";
+import { LANGUAGES, MODELS, ALL_VOICES, EMOTIONS } from "@/lib/constants";
 import LanguageSelector from "./LanguageSelector";
 import VoiceSelector from "./VoiceSelector";
 import TextInput from "./TextInput";
 import AudioPlayer from "./AudioPlayer";
 import { useTTS } from "@/hooks/useTTS";
-import { Wand2 } from "lucide-react";
+import { Wand2, Sliders, VolumeX, Volume2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { 
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger
+} from "@/components/ui/accordion";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const VoiceGenerator = () => {
   const [text, setText] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState(LANGUAGES[0].id);
   const [selectedVoice, setSelectedVoice] = useState(ALL_VOICES[0].id);
   const [selectedModel, setSelectedModel] = useState(MODELS[0].id);
-  const { generateSpeech, stopSpeech, isLoading, isPlaying, audioUrl, error } = useTTS();
+  const [advancedSettingsOpen, setAdvancedSettingsOpen] = useState(false);
+  
+  // Voice customization parameters
+  const [stability, setStability] = useState(0.5);
+  const [similarityBoost, setSimilarityBoost] = useState(0.75);
+  const [style, setStyle] = useState(0);
+  const [useSpeakerBoost, setUseSpeakerBoost] = useState(true);
+  const [emotion, setEmotion] = useState("neutral");
+
+  const { generateSpeech, stopSpeech, resumeSpeech, isLoading, isPlaying, audioUrl, error } = useTTS();
   const { toast } = useToast();
 
   const handleGenerateSpeech = async () => {
@@ -44,6 +61,11 @@ const VoiceGenerator = () => {
         text,
         voiceId: voice.voiceId,
         model: selectedModel,
+        stability,
+        similarity_boost: similarityBoost,
+        style,
+        use_speaker_boost: useSpeakerBoost,
+        emotion,
       });
     } catch (err) {
       console.error("Error generating speech:", err);
@@ -56,8 +78,11 @@ const VoiceGenerator = () => {
   };
 
   const handlePlayAudio = () => {
-    // The actual play functionality is handled in the useTTS hook
-    handleGenerateSpeech();
+    if (audioUrl && !isPlaying) {
+      resumeSpeech();
+    } else {
+      handleGenerateSpeech();
+    }
   };
 
   const handlePauseAudio = () => {
@@ -68,9 +93,9 @@ const VoiceGenerator = () => {
     <div className="glass-morphism rounded-xl p-6 md:p-8 animate-smooth-appear">
       <div className="flex flex-col space-y-6">
         <div className="space-y-2">
-          <h3 className="text-xl font-semibold">Text to Speech Generator</h3>
+          <h3 className="text-xl font-semibold">AI Voice Generator</h3>
           <p className="text-white/70 text-sm">
-            Convert your text into natural-sounding speech in seconds.
+            Convert your text into natural-sounding speech with advanced AI customization.
           </p>
         </div>
 
@@ -144,6 +169,93 @@ const VoiceGenerator = () => {
             onSelect={setSelectedVoice}
           />
         </div>
+
+        <Accordion type="single" collapsible className="glass-morphism rounded-lg">
+          <AccordionItem value="advanced-settings" className="border-white/10">
+            <AccordionTrigger className="px-4 py-3 text-white hover:no-underline">
+              <div className="flex items-center">
+                <Sliders className="w-4 h-4 mr-2" />
+                <span>Advanced Voice Settings</span>
+              </div>
+            </AccordionTrigger>
+            <AccordionContent className="px-4 pb-4">
+              <div className="space-y-4">
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <label className="text-sm font-medium">Voice Stability</label>
+                    <span className="text-xs text-white/70">{Math.round(stability * 100)}%</span>
+                  </div>
+                  <Slider
+                    value={[stability * 100]}
+                    min={0}
+                    max={100}
+                    step={1}
+                    onValueChange={(value) => setStability(value[0] / 100)}
+                    className="py-1"
+                  />
+                  <p className="text-xs text-white/60">
+                    Lower values create more variable output. Higher values make voice more stable.
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <label className="text-sm font-medium">Similarity Boost</label>
+                    <span className="text-xs text-white/70">{Math.round(similarityBoost * 100)}%</span>
+                  </div>
+                  <Slider
+                    value={[similarityBoost * 100]}
+                    min={0}
+                    max={100}
+                    step={1}
+                    onValueChange={(value) => setSimilarityBoost(value[0] / 100)}
+                    className="py-1"
+                  />
+                  <p className="text-xs text-white/60">
+                    Higher values make the voice more similar to the original voice sample.
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <label className="text-sm font-medium">Style</label>
+                    <span className="text-xs text-white/70">{Math.round(style * 100)}%</span>
+                  </div>
+                  <Slider
+                    value={[style * 100]}
+                    min={0}
+                    max={100}
+                    step={1}
+                    onValueChange={(value) => setStyle(value[0] / 100)}
+                    className="py-1"
+                  />
+                  <p className="text-xs text-white/60">
+                    Higher values enhance prosody and increase expressiveness.
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Voice Emotion</label>
+                  <Select value={emotion} onValueChange={setEmotion}>
+                    <SelectTrigger className="w-full bg-background/50 border-white/10">
+                      <SelectValue placeholder="Select emotion" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-background/95 backdrop-blur-lg border-white/10">
+                      {EMOTIONS.map((emotion) => (
+                        <SelectItem key={emotion.id} value={emotion.id} className="focus:bg-pink/10 focus:text-pink">
+                          {emotion.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <p className="text-xs text-white/60">
+                    Select the emotional tone for your AI voice.
+                  </p>
+                </div>
+              </div>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
 
         <div className="space-y-2">
           <div className="text-sm font-medium mb-1">AI Model</div>

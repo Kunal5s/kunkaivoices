@@ -6,17 +6,32 @@ type TTSOptions = {
   text: string;
   voiceId: string;
   model?: string;
+  stability?: number;
+  similarity_boost?: number;
+  style?: number;
+  use_speaker_boost?: boolean;
+  emotion?: string;
 };
+
+const API_KEY = "sk_14b108838a73c4b1568fb6a108886dacdac839f5e9a7b062";
 
 export const useTTS = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
 
-  // This would typically use the Eleven Labs API
-  // For now, we'll simulate the API call with a delay
-  const generateSpeech = async ({ text, voiceId, model = "eleven-multilingual-v2" }: TTSOptions) => {
+  const generateSpeech = async ({
+    text,
+    voiceId,
+    model = "eleven_multilingual_v2",
+    stability = 0.5,
+    similarity_boost = 0.75,
+    style = 0,
+    use_speaker_boost = true,
+    emotion = "neutral"
+  }: TTSOptions) => {
     if (!text || !voiceId) {
       setError("Text and voice are required");
       return null;
@@ -26,48 +41,60 @@ export const useTTS = () => {
       setIsLoading(true);
       setError(null);
       
-      // Simulate API call delay
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Real Eleven Labs API call
+      const url = `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`;
       
-      // In a real implementation, we would call the Eleven Labs API here
-      // and get back an audio blob that we would convert to a URL
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "xi-api-key": API_KEY,
+        },
+        body: JSON.stringify({
+          text,
+          model_id: model,
+          voice_settings: {
+            stability,
+            similarity_boost,
+            style,
+            use_speaker_boost,
+          },
+          // Include additional parameters if using a model that supports emotions
+          ...(model.includes("eleven_monolingual") && { emotion }),
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.detail || `Error: ${response.status}`);
+      }
+
+      // Get the audio blob from the response
+      const audioBlob = await response.blob();
+      const audioObjectUrl = URL.createObjectURL(audioBlob);
       
-      // For now, we'll use the Web Speech API as a fallback
-      const utterance = new SpeechSynthesisUtterance(text);
-      const voices = window.speechSynthesis.getVoices();
-      
-      // Try to match a similar voice from available voices
-      const voice = ALL_VOICES.find(v => v.voiceId === voiceId);
-      
-      if (voice) {
-        // This is just for the demo - in real app we'd use the Eleven Labs API
-        if (voice.gender === "female") {
-          utterance.voice = voices.find(v => v.name.includes("Female")) || voices[0];
-        } else {
-          utterance.voice = voices.find(v => v.name.includes("Male")) || voices[0];
-        }
+      // Create an audio element to play the sound
+      if (audioElement) {
+        audioElement.pause();
+        URL.revokeObjectURL(audioUrl || "");
       }
       
-      // Play the speech
+      const audio = new Audio(audioObjectUrl);
+      setAudioElement(audio);
+      setAudioUrl(audioObjectUrl);
+      
+      // Play the audio and handle events
+      audio.onplay = () => setIsPlaying(true);
+      audio.onended = () => setIsPlaying(false);
+      audio.onpause = () => setIsPlaying(false);
+      
+      audio.play();
       setIsPlaying(true);
       
-      // Return a promise that resolves when the speech is done
-      await new Promise<void>((resolve) => {
-        utterance.onend = () => {
-          setIsPlaying(false);
-          resolve();
-        };
-        window.speechSynthesis.speak(utterance);
-      });
-      
-      // In a real implementation, we would return the audio URL
-      // For now, we'll just set a dummy URL
-      setAudioUrl("https://example.com/audio.mp3");
-      
-      return "https://example.com/audio.mp3";
+      return audioObjectUrl;
     } catch (err) {
       console.error("Error generating speech:", err);
-      setError("Failed to generate speech");
+      setError(err instanceof Error ? err.message : "Failed to generate speech");
       return null;
     } finally {
       setIsLoading(false);
@@ -75,13 +102,23 @@ export const useTTS = () => {
   };
 
   const stopSpeech = () => {
-    window.speechSynthesis.cancel();
-    setIsPlaying(false);
+    if (audioElement && isPlaying) {
+      audioElement.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  const resumeSpeech = () => {
+    if (audioElement && !isPlaying && audioUrl) {
+      audioElement.play();
+      setIsPlaying(true);
+    }
   };
 
   return {
     generateSpeech,
     stopSpeech,
+    resumeSpeech,
     isLoading,
     isPlaying,
     audioUrl,

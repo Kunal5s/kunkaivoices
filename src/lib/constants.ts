@@ -70,6 +70,21 @@ export const FEMALE_VOICES = [
 
 export const ALL_VOICES = [...MALE_VOICES, ...FEMALE_VOICES];
 
+export const EMOTIONS = [
+  { id: "neutral", name: "Neutral" },
+  { id: "happy", name: "Happy" },
+  { id: "sad", name: "Sad" },
+  { id: "angry", name: "Angry" },
+  { id: "fearful", name: "Fearful" },
+  { id: "disgusted", name: "Disgusted" },
+  { id: "surprised", name: "Surprised" },
+  { id: "whispering", name: "Whispering" },
+  { id: "shouting", name: "Shouting" },
+  { id: "excited", name: "Excited" },
+  { id: "friendly", name: "Friendly" },
+  { id: "unfriendly", name: "Unfriendly" },
+];
+
 export const SERVICES = [
   {
     id: "voice-generation",
@@ -149,25 +164,25 @@ export const FEATURES = [
 
 export const MODELS = [
   {
-    id: "eleven-multilingual-v2",
+    id: "eleven_multilingual_v2",
     name: "Eleven Multilingual v2",
     description: "Our most life-like, emotionally rich model in 29 languages.",
     tag: "Premium",
   },
   {
-    id: "eleven-turbo-v2",
+    id: "eleven_turbo_v2",
     name: "Eleven Turbo v2",
     description: "English-only, low latency model for developer use cases.",
     tag: "Fast",
   },
   {
-    id: "eleven-multilingual-v1",
+    id: "eleven_multilingual_v1",
     name: "Eleven Multilingual v1",
     description: "Original multilingual model capable of generating speech in 10 languages.",
     tag: "Standard",
   },
   {
-    id: "eleven-monolingual-v1",
+    id: "eleven_monolingual_v1",
     name: "Eleven English v1",
     description: "Our first text to speech model. Now outclassed by newer models.",
     tag: "Legacy",
