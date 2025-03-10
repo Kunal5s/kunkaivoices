@@ -1,6 +1,7 @@
 
 import { Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -14,7 +15,7 @@ const Footer = () => {
               <span className="text-xl font-bold text-gradient">VocalAI</span>
             </div>
             <p className="text-white/70 text-sm mb-4">
-              AI-powered voice technology for everyone. Create natural, emotional, and studio-quality voiceovers with ease.
+              Transform your content with cutting-edge AI voice technology. Support for 50+ languages, 40+ premium voices, and advanced voice customization features.
             </p>
             <div className="flex space-x-4">
               <Button
@@ -42,32 +43,32 @@ const Footer = () => {
           </div>
 
           <div className="md:col-span-1">
-            <h4 className="text-sm font-medium uppercase tracking-wider mb-4">Services</h4>
+            <h4 className="text-sm font-medium uppercase tracking-wider mb-4">Products & Services</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/features" className="text-white/70 hover:text-white text-sm transition-colors">
+                  Voice Generation
+                </Link>
+              </li>
+              <li>
+                <Link to="/features" className="text-white/70 hover:text-white text-sm transition-colors">
                   Text to Speech
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/features" className="text-white/70 hover:text-white text-sm transition-colors">
                   Voice Cloning
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">
-                  AI Agents
-                </a>
+                <Link to="/features" className="text-white/70 hover:text-white text-sm transition-colors">
+                  AI Voice Agents
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/features" className="text-white/70 hover:text-white text-sm transition-colors">
                   Audio Editing
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">
-                  Voiceover Studio
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -76,60 +77,60 @@ const Footer = () => {
             <h4 className="text-sm font-medium uppercase tracking-wider mb-4">Company</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/about" className="text-white/70 hover:text-white text-sm transition-colors">
                   About Us
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/careers" className="text-white/70 hover:text-white text-sm transition-colors">
                   Careers
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/blog" className="text-white/70 hover:text-white text-sm transition-colors">
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link to="/press" className="text-white/70 hover:text-white text-sm transition-colors">
+                  Press Kit
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="text-white/70 hover:text-white text-sm transition-colors">
                   Contact
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">
-                  Press
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
 
           <div className="md:col-span-1">
-            <h4 className="text-sm font-medium uppercase tracking-wider mb-4">Legal</h4>
+            <h4 className="text-sm font-medium uppercase tracking-wider mb-4">Legal & Support</h4>
             <ul className="space-y-2">
               <li>
-                <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">
-                  Terms of Service
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/privacy" className="text-white/70 hover:text-white text-sm transition-colors">
                   Privacy Policy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">
-                  Cookie Policy
-                </a>
+                <Link to="/terms" className="text-white/70 hover:text-white text-sm transition-colors">
+                  Terms of Service
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">
-                  GDPR
-                </a>
-              </li>
-              <li>
-                <a href="#" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/security" className="text-white/70 hover:text-white text-sm transition-colors">
                   Security
-                </a>
+                </Link>
+              </li>
+              <li>
+                <Link to="/gdpr" className="text-white/70 hover:text-white text-sm transition-colors">
+                  GDPR Compliance
+                </Link>
+              </li>
+              <li>
+                <Link to="/support" className="text-white/70 hover:text-white text-sm transition-colors">
+                  Support Center
+                </Link>
               </li>
             </ul>
           </div>
@@ -137,24 +138,24 @@ const Footer = () => {
 
         <div className="mt-12 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center">
           <p className="text-white/50 text-sm">
-            © 2023 VocalAI. All rights reserved.
+            © 2024 VocalAI. All rights reserved.
           </p>
           <div className="mt-4 md:mt-0">
             <ul className="flex space-x-6">
               <li>
-                <a href="#" className="text-white/50 hover:text-white text-sm transition-colors">
+                <Link to="/terms" className="text-white/50 hover:text-white text-sm transition-colors">
                   Terms
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-white/50 hover:text-white text-sm transition-colors">
+                <Link to="/privacy" className="text-white/50 hover:text-white text-sm transition-colors">
                   Privacy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="text-white/50 hover:text-white text-sm transition-colors">
+                <Link to="/cookies" className="text-white/50 hover:text-white text-sm transition-colors">
                   Cookies
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -165,3 +166,4 @@ const Footer = () => {
 };
 
 export default Footer;
+
