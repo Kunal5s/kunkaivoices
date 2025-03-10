@@ -1,6 +1,6 @@
 
 import { LucideIcon } from "lucide-react";
-import { Mic, MessageSquareText, Copy, Bot, Waveform, Album } from "lucide-react";
+import { Mic, MessageSquareText, Copy, Bot, WaveSine, Album } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ServiceCardProps {
@@ -8,6 +8,7 @@ interface ServiceCardProps {
   description: string;
   icon: string;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 const iconComponents: Record<string, LucideIcon> = {
@@ -15,11 +16,11 @@ const iconComponents: Record<string, LucideIcon> = {
   "message-square-text": MessageSquareText,
   copy: Copy,
   bot: Bot,
-  waveform: Waveform,
+  waveform: WaveSine,
   album: Album,
 };
 
-const ServiceCard = ({ title, description, icon, className }: ServiceCardProps) => {
+const ServiceCard = ({ title, description, icon, className, style }: ServiceCardProps) => {
   const IconComponent = iconComponents[icon];
 
   return (
@@ -28,6 +29,7 @@ const ServiceCard = ({ title, description, icon, className }: ServiceCardProps) 
         "glass-morphism rounded-xl p-6 transition-all duration-300 hover:border-pink/30 hover:pink-glow group",
         className
       )}
+      style={style}
     >
       <div className="w-12 h-12 rounded-lg bg-pink/10 flex items-center justify-center mb-4 transition-all duration-300 group-hover:bg-pink/20">
         {IconComponent && <IconComponent className="w-6 h-6 text-pink" />}
