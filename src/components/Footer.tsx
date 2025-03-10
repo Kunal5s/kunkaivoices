@@ -19,27 +19,33 @@ const Footer = () => {
               Experience our next-generation AI voice technology with 50+ languages, 40+ premium voices, and cutting-edge voice customization. Create human-like speech for content, gaming, business, and more.
             </p>
             <div className="flex space-x-4">
-              <Button
-                size="icon"
-                variant="outline"
-                className="h-8 w-8 rounded-full border-white/10 bg-background/50 hover:bg-background/80"
-              >
-                <i className="fab fa-twitter text-white/70"></i>
-              </Button>
-              <Button
-                size="icon"
-                variant="outline"
-                className="h-8 w-8 rounded-full border-white/10 bg-background/50 hover:bg-background/80"
-              >
-                <i className="fab fa-facebook text-white/70"></i>
-              </Button>
-              <Button
-                size="icon"
-                variant="outline"
-                className="h-8 w-8 rounded-full border-white/10 bg-background/50 hover:bg-background/80"
-              >
-                <i className="fab fa-instagram text-white/70"></i>
-              </Button>
+              <a href="https://twitter.com/vocalai" target="_blank" rel="noopener noreferrer">
+                <Button
+                  size="icon"
+                  variant="outline"
+                  className="h-8 w-8 rounded-full border-white/10 bg-background/50 hover:bg-background/80"
+                >
+                  <i className="fab fa-twitter text-white/70"></i>
+                </Button>
+              </a>
+              <a href="https://facebook.com/vocalai" target="_blank" rel="noopener noreferrer">
+                <Button
+                  size="icon"
+                  variant="outline"
+                  className="h-8 w-8 rounded-full border-white/10 bg-background/50 hover:bg-background/80"
+                >
+                  <i className="fab fa-facebook text-white/70"></i>
+                </Button>
+              </a>
+              <a href="https://instagram.com/vocalai" target="_blank" rel="noopener noreferrer">
+                <Button
+                  size="icon"
+                  variant="outline"
+                  className="h-8 w-8 rounded-full border-white/10 bg-background/50 hover:bg-background/80"
+                >
+                  <i className="fab fa-instagram text-white/70"></i>
+                </Button>
+              </a>
             </div>
           </div>
 
@@ -52,32 +58,32 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/features" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/features#text-to-speech" className="text-white/70 hover:text-white text-sm transition-colors">
                   Text to Speech
                 </Link>
               </li>
               <li>
-                <Link to="/features" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/features#voice-cloning" className="text-white/70 hover:text-white text-sm transition-colors">
                   Voice Cloning
                 </Link>
               </li>
               <li>
-                <Link to="/features" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/features#ai-voice-agents" className="text-white/70 hover:text-white text-sm transition-colors">
                   AI Voice Agents
                 </Link>
               </li>
               <li>
-                <Link to="/features" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/features#audio-editing" className="text-white/70 hover:text-white text-sm transition-colors">
                   Audio Editing
                 </Link>
               </li>
               <li>
-                <Link to="/features" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/features#multi-language" className="text-white/70 hover:text-white text-sm transition-colors">
                   Multi-language Support
                 </Link>
               </li>
               <li>
-                <Link to="/features" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/features#voice-modulation" className="text-white/70 hover:text-white text-sm transition-colors">
                   Real-time Voice Modulation
                 </Link>
               </li>
@@ -169,14 +175,16 @@ const Footer = () => {
 
         <div className="mt-12 pt-6 border-t border-white/10">
           <div className="text-white/70 text-sm mb-6">
-            <h5 className="font-medium mb-2">Available Languages</h5>
+            <h5 className="font-medium mb-2">Available Languages (50+)</h5>
             <div className="flex flex-wrap gap-2">
               {LANGUAGES.slice(0, 15).map((lang) => (
                 <span key={lang.id} className="inline-flex items-center" title={lang.name}>
                   {lang.flag}
                 </span>
               ))}
-              <span className="text-white/50">+{LANGUAGES.length - 15} more</span>
+              <Link to="/languages" className="text-white/50 hover:text-white transition-colors">
+                +{LANGUAGES.length - 15} more
+              </Link>
             </div>
           </div>
         </div>

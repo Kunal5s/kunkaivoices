@@ -31,7 +31,7 @@ const VoiceSelector = ({ selectedVoice, onSelect, className }: VoiceSelectorProp
             {selectedVoiceObj ? (
               <div className="flex items-center">
                 <span className="text-sm font-medium">{selectedVoiceObj.name}</span>
-                <span className="ml-2 text-xs text-white/60">({selectedVoiceObj.type})</span>
+                <span className="ml-2 text-xs text-white/60">({selectedVoiceObj.gender})</span>
               </div>
             ) : (
               <div className="flex items-center">
@@ -42,7 +42,7 @@ const VoiceSelector = ({ selectedVoice, onSelect, className }: VoiceSelectorProp
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-full p-0 bg-background/95 backdrop-blur-lg border-white/10">
+        <PopoverContent className="w-full p-0 bg-background/95 backdrop-blur-lg border-white/10 max-h-[400px] overflow-y-auto">
           <Command className="bg-transparent">
             <CommandInput placeholder="Search voice..." className="border-b-white/10" />
             <CommandEmpty>No voice found.</CommandEmpty>
@@ -55,7 +55,7 @@ const VoiceSelector = ({ selectedVoice, onSelect, className }: VoiceSelectorProp
                     onSelect(voice.id);
                     setOpen(false);
                   }}
-                  className="flex items-center justify-between"
+                  className="flex items-center justify-between cursor-pointer"
                 >
                   <div className="flex flex-col">
                     <span className="text-sm font-medium">{voice.name}</span>
@@ -79,7 +79,7 @@ const VoiceSelector = ({ selectedVoice, onSelect, className }: VoiceSelectorProp
                     onSelect(voice.id);
                     setOpen(false);
                   }}
-                  className="flex items-center justify-between"
+                  className="flex items-center justify-between cursor-pointer"
                 >
                   <div className="flex flex-col">
                     <span className="text-sm font-medium">{voice.name}</span>

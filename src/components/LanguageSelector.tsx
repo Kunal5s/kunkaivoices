@@ -41,7 +41,7 @@ const LanguageSelector = ({ selectedLanguage, onSelect, className }: LanguageSel
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-full p-0 bg-background/95 backdrop-blur-lg border-white/10">
+        <PopoverContent className="w-full p-0 bg-background/95 backdrop-blur-lg border-white/10 max-h-[300px] overflow-y-auto">
           <Command className="bg-transparent">
             <CommandInput placeholder="Search language..." className="border-b-white/10" />
             <CommandEmpty>No language found.</CommandEmpty>
@@ -54,7 +54,7 @@ const LanguageSelector = ({ selectedLanguage, onSelect, className }: LanguageSel
                     onSelect(language.id);
                     setOpen(false);
                   }}
-                  className="flex items-center"
+                  className="flex items-center cursor-pointer"
                 >
                   <span className="mr-2">{language.flag}</span>
                   <span>{language.name}</span>
