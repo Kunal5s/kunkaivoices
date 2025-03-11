@@ -1,246 +1,240 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Plus, X, Play, Pause } from "lucide-react";
-import { ALL_VOICES } from "@/lib/constants";
+import { Textarea } from "@/components/ui/textarea";
+import VoiceSelector from "@/components/VoiceSelector";
+import { MALE_VOICES, FEMALE_VOICES } from "@/lib/constants";
 import { useTTS } from "@/hooks/useTTS";
+import { PlusCircle, Send, Trash2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
-import VoiceSelector from "./VoiceSelector";
-import { cn } from "@/lib/utils";
 
-interface DialogLine {
+interface Character {
   id: string;
-  character: string;
-  text: string;
+  name: string;
   voiceId: string;
 }
 
+interface Message {
+  id: string;
+  characterId: string;
+  text: string;
+}
+
 const MultiCharacterConversation = () => {
-  const [dialog, setDialog] = useState<DialogLine[]>([
-    { 
-      id: "1", 
-      character: "Character 1", 
-      text: "Hello, how are you today?", 
-      voiceId: ALL_VOICES[0].id 
-    },
-    { 
-      id: "2", 
-      character: "Character 2", 
-      text: "I'm doing well, thank you for asking!", 
-      voiceId: ALL_VOICES[10].id 
-    },
+  const [characters, setCharacters] = useState<Character[]>([
+    { id: "char-1", name: "Character 1", voiceId: MALE_VOICES[0].id },
+    { id: "char-2", name: "Character 2", voiceId: FEMALE_VOICES[0].id },
   ]);
-  
-  const [currentPlayingIndex, setCurrentPlayingIndex] = useState<number | null>(null);
-  const [isPlayingAll, setIsPlayingAll] = useState(false);
-  const { generateSpeech, stopSpeech, isLoading, isPlaying } = useTTS();
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [currentMessage, setCurrentMessage] = useState("");
+  const [selectedCharacter, setSelectedCharacter] = useState<string>("char-1");
+  const { generateSpeech, isLoading } = useTTS();
   const { toast } = useToast();
 
-  const addDialogLine = () => {
-    const newId = String(dialog.length + 1);
-    const newVoiceId = ALL_VOICES[Math.min(dialog.length % ALL_VOICES.length, ALL_VOICES.length - 1)].id;
-    
-    setDialog([
-      ...dialog,
-      {
-        id: newId,
-        character: `Character ${dialog.length + 1}`,
-        text: "",
-        voiceId: newVoiceId,
-      },
-    ]);
+  const handleAddCharacter = () => {
+    const newId = `char-${characters.length + 1}`;
+    const newCharacter = {
+      id: newId,
+      name: `Character ${characters.length + 1}`,
+      voiceId: characters.length % 2 === 0 ? FEMALE_VOICES[0].id : MALE_VOICES[0].id,
+    };
+    setCharacters([...characters, newCharacter]);
+    setSelectedCharacter(newId);
   };
 
-  const removeDialogLine = (id: string) => {
-    setDialog(dialog.filter((line) => line.id !== id));
+  const handleRemoveCharacter = (id: string) => {
+    if (characters.length <= 2) {
+      toast({
+        title: "Cannot remove character",
+        description: "You need at least two characters for a conversation.",
+        variant: "destructive",
+      });
+      return;
+    }
+    setCharacters(characters.filter((char) => char.id !== id));
+    if (selectedCharacter === id) {
+      setSelectedCharacter(characters[0].id);
+    }
+    setMessages(messages.filter((msg) => msg.characterId !== id));
   };
 
-  const updateDialogLine = (id: string, field: keyof DialogLine, value: string) => {
-    setDialog(
-      dialog.map((line) =>
-        line.id === id ? { ...line, [field]: value } : line
+  const handleChangeCharacterVoice = (characterId: string, voiceId: string) => {
+    setCharacters(
+      characters.map((char) =>
+        char.id === characterId ? { ...char, voiceId } : char
       )
     );
   };
 
-  const playLine = async (index: number) => {
-    if (index >= dialog.length) {
-      setCurrentPlayingIndex(null);
-      setIsPlayingAll(false);
-      return;
-    }
+  const handleChangeCharacterName = (characterId: string, name: string) => {
+    setCharacters(
+      characters.map((char) =>
+        char.id === characterId ? { ...char, name } : char
+      )
+    );
+  };
 
-    const line = dialog[index];
-    if (!line.text.trim()) {
-      // Skip empty lines
-      if (isPlayingAll) {
-        playLine(index + 1);
-      }
-      return;
-    }
-
-    setCurrentPlayingIndex(index);
-    
-    const voice = ALL_VOICES.find((v) => v.id === line.voiceId);
-    if (!voice) {
+  const handleSendMessage = async () => {
+    if (!currentMessage.trim()) {
       toast({
-        title: "Voice not found",
-        description: `Could not find voice for ${line.character}.`,
+        title: "Message is empty",
+        description: "Please enter a message to send.",
         variant: "destructive",
       });
       return;
     }
 
-    try {
-      await generateSpeech({
-        text: line.text,
-        voiceId: voice.voiceId,
-      });
-      
-      // Create a listener to detect when the audio finishes playing
-      const checkPlayingInterval = setInterval(() => {
-        if (!isPlaying) {
-          clearInterval(checkPlayingInterval);
-          
-          // If we're playing all lines, move to the next one
-          if (isPlayingAll) {
-            setTimeout(() => {
-              playLine(index + 1);
-            }, 500); // Add a small pause between lines
-          } else {
-            setCurrentPlayingIndex(null);
-          }
+    const newMessage = {
+      id: `msg-${Date.now()}`,
+      characterId: selectedCharacter,
+      text: currentMessage,
+    };
+
+    setMessages([...messages, newMessage]);
+    setCurrentMessage("");
+
+    const character = characters.find((char) => char.id === selectedCharacter);
+    if (character) {
+      const voice = [...MALE_VOICES, ...FEMALE_VOICES].find(
+        (voice) => voice.id === character.voiceId
+      );
+      if (voice) {
+        try {
+          await generateSpeech({
+            text: currentMessage,
+            voiceId: voice.voiceId,
+          });
+        } catch (error) {
+          console.error("Error generating speech:", error);
+          toast({
+            title: "Error",
+            description: "Failed to generate speech. Please try again.",
+            variant: "destructive",
+          });
         }
-      }, 100);
-    } catch (err) {
-      console.error("Error playing line:", err);
-      toast({
-        title: "Error",
-        description: "Failed to play dialog line. Please try again.",
-        variant: "destructive",
-      });
-      setCurrentPlayingIndex(null);
-      setIsPlayingAll(false);
+      }
     }
   };
 
-  const playAllLines = () => {
-    setIsPlayingAll(true);
-    playLine(0);
-  };
-
-  const stopPlaying = () => {
-    stopSpeech();
-    setCurrentPlayingIndex(null);
-    setIsPlayingAll(false);
+  const getCharacterById = (id: string) => {
+    return characters.find((char) => char.id === id);
   };
 
   return (
     <div className="glass-morphism rounded-xl p-6 md:p-8 animate-smooth-appear">
       <div className="flex flex-col space-y-6">
-        <div className="space-y-2">
-          <h3 className="text-xl font-semibold">Multi-Character Conversation</h3>
-          <p className="text-white/70 text-sm">
-            Create dynamic conversations between multiple AI voices.
-          </p>
-        </div>
-
-        <div className="space-y-4">
-          {dialog.map((line, index) => (
-            <div 
-              key={line.id} 
-              className={cn(
-                "glass-morphism rounded-lg p-4 transition-all duration-300",
-                currentPlayingIndex === index && "border-pink border-2"
-              )}
+        <div className="flex flex-wrap gap-3">
+          {characters.map((character) => (
+            <div
+              key={character.id}
+              className={`glass-morphism rounded-lg p-4 flex-1 min-w-[260px] space-y-3 ${
+                selectedCharacter === character.id
+                  ? "border border-pink/30"
+                  : "border border-white/10"
+              }`}
             >
-              <div className="flex items-center justify-between mb-3">
+              <div className="flex justify-between items-center">
                 <input
                   type="text"
-                  value={line.character}
-                  onChange={(e) => updateDialogLine(line.id, "character", e.target.value)}
-                  className="bg-background/30 border-none focus:ring-pink/20 text-white font-medium rounded px-2 py-1 w-1/3"
-                  placeholder="Character Name"
+                  value={character.name}
+                  onChange={(e) =>
+                    handleChangeCharacterName(character.id, e.target.value)
+                  }
+                  className="bg-transparent border-none focus:outline-none text-lg font-medium"
                 />
-                
-                <div className="flex items-center space-x-2">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-white/70 hover:text-pink hover:bg-pink/10"
-                    onClick={() => playLine(index)}
-                    disabled={isLoading || (currentPlayingIndex !== null && currentPlayingIndex !== index)}
-                  >
-                    <Play className="h-4 w-4" />
-                  </Button>
-                  
-                  {dialog.length > 2 && (
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="text-white/70 hover:text-destructive hover:bg-destructive/10"
-                      onClick={() => removeDialogLine(line.id)}
-                    >
-                      <X className="h-4 w-4" />
-                    </Button>
-                  )}
-                </div>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => handleRemoveCharacter(character.id)}
+                  className="h-8 w-8 text-white/50 hover:text-white hover:bg-pink/10"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="md:col-span-2">
-                  <textarea
-                    value={line.text}
-                    onChange={(e) => updateDialogLine(line.id, "text", e.target.value)}
-                    className="w-full h-20 bg-background/20 border-white/10 focus:border-pink/30 rounded p-2 resize-none"
-                    placeholder="Enter the character's dialog..."
-                  />
-                </div>
-                <div>
-                  <VoiceSelector
-                    selectedVoice={line.voiceId}
-                    onSelect={(voiceId) => updateDialogLine(line.id, "voiceId", voiceId)}
-                  />
-                </div>
-              </div>
+              <VoiceSelector
+                selectedVoice={character.voiceId}
+                onSelect={(voice) => handleChangeCharacterVoice(character.id, voice)}
+                className="w-full"
+              />
+
+              <Button
+                variant="outline"
+                className={`w-full border-white/10 hover:border-white/20 ${
+                  selectedCharacter === character.id
+                    ? "bg-pink/10 text-pink"
+                    : "bg-background/50"
+                }`}
+                onClick={() => setSelectedCharacter(character.id)}
+              >
+                {selectedCharacter === character.id
+                  ? "Selected"
+                  : "Select Character"}
+              </Button>
             </div>
           ))}
+          <div className="flex-1 min-w-[260px] glass-morphism rounded-lg p-4 flex flex-col items-center justify-center">
+            <Button
+              variant="ghost"
+              className="h-20 w-20 rounded-full border border-dashed border-white/20 hover:border-pink/30 hover:bg-pink/5"
+              onClick={handleAddCharacter}
+            >
+              <PlusCircle className="h-8 w-8 text-white/70" />
+            </Button>
+            <span className="mt-2 text-sm text-white/70">Add Character</span>
+          </div>
         </div>
 
-        <div className="flex items-center justify-between">
-          <Button
-            variant="outline"
-            className="border-white/10 hover:border-white/20"
-            onClick={addDialogLine}
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            Add Character
-          </Button>
+        <div className="glass-morphism rounded-lg p-4 min-h-[300px] max-h-[400px] overflow-y-auto">
+          {messages.length === 0 ? (
+            <div className="flex flex-col items-center justify-center h-full text-white/50 text-center">
+              <p className="mb-2">No messages yet</p>
+              <p className="text-sm">
+                Select a character and start the conversation
+              </p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {messages.map((message) => {
+                const character = getCharacterById(message.characterId);
+                return (
+                  <div key={message.id} className="flex flex-col">
+                    <div className="flex items-center gap-2 mb-1">
+                      <div className="font-medium text-pink">
+                        {character?.name}
+                      </div>
+                      <div className="text-xs text-white/50">
+                        {[...MALE_VOICES, ...FEMALE_VOICES].find(
+                          (voice) => voice.id === character?.voiceId
+                        )?.gender}
+                      </div>
+                    </div>
+                    <div className="glass-morphism rounded p-3">
+                      {message.text}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
 
-          <div className="space-x-3">
-            {isPlayingAll ? (
-              <Button
-                className="bg-pink hover:bg-pink-dark transition-colors pink-glow"
-                onClick={stopPlaying}
-              >
-                <Pause className="mr-2 h-4 w-4" />
-                Stop Playback
-              </Button>
-            ) : (
-              <Button
-                className="bg-pink hover:bg-pink-dark transition-colors pink-glow"
-                onClick={playAllLines}
-                disabled={isLoading || dialog.some(line => !line.text.trim())}
-              >
-                <Play className="mr-2 h-4 w-4" />
-                Play Conversation
-              </Button>
-            )}
-          </div>
+        <div className="flex space-x-2">
+          <Textarea
+            value={currentMessage}
+            onChange={(e) => setCurrentMessage(e.target.value)}
+            placeholder="Type your message here..."
+            className="bg-background/50 border-white/10 focus:border-pink/30 min-h-[80px]"
+          />
+          <Button
+            className="bg-pink hover:bg-pink-dark transition-colors pink-glow self-end"
+            size="icon"
+            onClick={handleSendMessage}
+            disabled={isLoading || !currentMessage.trim()}
+          >
+            <Send className="h-4 w-4" />
+          </Button>
         </div>
       </div>
     </div>
-  );
-};
-
-export default MultiCharacterConversation;
+  

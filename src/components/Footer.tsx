@@ -2,7 +2,7 @@
 import { Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { LANGUAGES } from "@/lib/constants";
+import { LANGUAGES, COMPANY_INFO, LEGAL_INFO } from "@/lib/constants";
 
 const Footer = () => {
   return (
@@ -68,8 +68,8 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/features#ai-voice-agents" className="text-white/70 hover:text-white text-sm transition-colors">
-                  AI Voice Agents
+                <Link to="/conversation" className="text-white/70 hover:text-white text-sm transition-colors">
+                  Multi-character Conversations
                 </Link>
               </li>
               <li>
@@ -99,9 +99,17 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/about#careers" className="text-white/70 hover:text-white text-sm transition-colors">
-                  Careers
+                <Link to="/about#team" className="text-white/70 hover:text-white text-sm transition-colors">
+                  Our Team
                 </Link>
+              </li>
+              <li>
+                <div className="flex flex-col">
+                  <Link to="/about#careers" className="text-white/70 hover:text-white text-sm transition-colors">
+                    Careers
+                  </Link>
+                  <span className="text-xs text-pink mt-1">We're hiring!</span>
+                </div>
               </li>
               <li>
                 <Link to="/about#blog" className="text-white/70 hover:text-white text-sm transition-colors">
@@ -119,14 +127,12 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/about#partners" className="text-white/70 hover:text-white text-sm transition-colors">
-                  Partners
-                </Link>
-              </li>
-              <li>
-                <Link to="/about#investors" className="text-white/70 hover:text-white text-sm transition-colors">
-                  Investors
-                </Link>
+                <div className="flex flex-col">
+                  <Link to="/about#partners" className="text-white/70 hover:text-white text-sm transition-colors">
+                    Partners
+                  </Link>
+                  <span className="text-xs text-white/50 mt-1">New partnership with ElevenLabs</span>
+                </div>
               </li>
             </ul>
           </div>
@@ -145,9 +151,12 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/privacy#security" className="text-white/70 hover:text-white text-sm transition-colors">
-                  Security
-                </Link>
+                <div className="flex flex-col">
+                  <Link to="/privacy#security" className="text-white/70 hover:text-white text-sm transition-colors">
+                    Security
+                  </Link>
+                  <span className="text-xs text-white/50 mt-1">Updated May 2024</span>
+                </div>
               </li>
               <li>
                 <Link to="/privacy#gdpr" className="text-white/70 hover:text-white text-sm transition-colors">
@@ -160,9 +169,12 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/features#api" className="text-white/70 hover:text-white text-sm transition-colors">
-                  API Documentation
-                </Link>
+                <div className="flex flex-col">
+                  <Link to="/features#api" className="text-white/70 hover:text-white text-sm transition-colors">
+                    API Documentation
+                  </Link>
+                  <span className="text-xs text-white/50 mt-1">New V2 API available</span>
+                </div>
               </li>
               <li>
                 <Link to="/about#faq" className="text-white/70 hover:text-white text-sm transition-colors">
@@ -174,14 +186,66 @@ const Footer = () => {
         </div>
 
         <div className="mt-12 pt-6 border-t border-white/10">
-          <div className="text-white/70 text-sm mb-6">
-            <h5 className="font-medium mb-2">Available Languages (20+)</h5>
-            <div className="flex flex-wrap gap-2">
-              {LANGUAGES.map((lang) => (
-                <span key={lang.id} className="inline-flex items-center" title={lang.name}>
-                  {lang.flag}
-                </span>
-              ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="text-white/70 text-sm">
+              <h5 className="font-medium mb-3">Recent Updates</h5>
+              <ul className="space-y-2">
+                <li className="flex items-start">
+                  <span className="text-pink text-xs mr-2 mt-1">NEW</span>
+                  <div>
+                    <span className="block text-white">Added multi-character conversation support</span>
+                    <span className="text-xs text-white/50">May 15, 2024</span>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-pink text-xs mr-2 mt-1">NEW</span>
+                  <div>
+                    <span className="block text-white">Emotion control with 12 different emotions</span>
+                    <span className="text-xs text-white/50">May 10, 2024</span>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-400 text-xs mr-2 mt-1">UPDATE</span>
+                  <div>
+                    <span className="block text-white">Improved model performance for all 20 languages</span>
+                    <span className="text-xs text-white/50">May 5, 2024</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div className="text-white/70 text-sm">
+              <h5 className="font-medium mb-3">Available Languages (20+)</h5>
+              <div className="flex flex-wrap gap-2">
+                {LANGUAGES.map((lang) => (
+                  <div key={lang.id} className="inline-flex items-center glass-morphism rounded-full px-2 py-1" title={lang.name}>
+                    <span className="mr-1">{lang.flag}</span>
+                    <span className="text-xs">{lang.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-10 pt-6 border-t border-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div className="text-white/70 text-sm">
+              <h5 className="font-medium mb-2">About {COMPANY_INFO.name}</h5>
+              <p className="text-white/60 text-xs">
+                {COMPANY_INFO.mission} Founded in {COMPANY_INFO.founded} in {COMPANY_INFO.location}.
+              </p>
+            </div>
+            <div className="text-white/70 text-sm">
+              <h5 className="font-medium mb-2">Our Values</h5>
+              <p className="text-white/60 text-xs">
+                {COMPANY_INFO.values[0]}
+              </p>
+            </div>
+            <div className="text-white/70 text-sm">
+              <h5 className="font-medium mb-2">Technical Stack</h5>
+              <p className="text-white/60 text-xs">
+                Powered by ElevenLabs AI technology, React, TypeScript, and TailwindCSS.
+              </p>
             </div>
           </div>
         </div>

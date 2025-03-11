@@ -93,33 +93,38 @@ export const useTTS = () => {
     // ElevenLabs API call
     const url = `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`;
     
-    const response = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "xi-api-key": API_KEY,
-      },
-      body: JSON.stringify({
-        text: chunk,
-        model_id: model,
-        voice_settings: {
-          stability,
-          similarity_boost,
-          style,
-          use_speaker_boost,
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "xi-api-key": API_KEY,
         },
-        // Include additional parameters if using a model that supports emotions
-        ...(model.includes("multilingual") && { emotion }),
-      }),
-    });
+        body: JSON.stringify({
+          text: chunk,
+          model_id: model,
+          voice_settings: {
+            stability,
+            similarity_boost,
+            style,
+            use_speaker_boost,
+          },
+          // Include additional parameters if using a model that supports emotions
+          ...(model.includes("multilingual") && { emotion }),
+        }),
+      });
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.detail || `Error: ${response.status}`);
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.detail || `Error: ${response.status}`);
+      }
+
+      // Get the audio blob from the response
+      return await response.blob();
+    } catch (err) {
+      console.error("API call error:", err);
+      throw err;
     }
-
-    // Get the audio blob from the response
-    return await response.blob();
   };
 
   const generateSpeech = async (options: TTSOptions) => {
