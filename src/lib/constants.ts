@@ -44,36 +44,42 @@ export const SERVICES = [
     title: "AI Voice Generation",
     description: "Generate human-like voices in 20+ languages with advanced AI technology.",
     icon: "mic",
+    link: "/",
   },
   {
     id: "text-to-speech",
     title: "Text-to-Speech",
     description: "Convert any text to natural-sounding speech with emotion control.",
     icon: "message-square-text",
+    link: "/features",
   },
   {
     id: "voice-cloning",
     title: "AI Voice Cloning",
     description: "Clone voices with just a few minutes of audio samples.",
     icon: "copy",
+    link: "/features",
   },
   {
     id: "ai-agents",
     title: "AI Voice Agents",
     description: "Create intelligent AI voice bots for customer support and automation.",
     icon: "bot",
+    link: "/features",
   },
   {
-    id: "audio-editing",
-    title: "Professional Audio Editing",
-    description: "Edit, enhance, and perfect your audio with studio-quality tools.",
-    icon: "waveform",
+    id: "conversation",
+    title: "Multi-Character Conversations",
+    description: "Create dynamic conversations between multiple AI voices.",
+    icon: "message-circle",
+    link: "/conversation",
   },
   {
     id: "voiceover-studio",
     title: "Voiceover Studio",
     description: "Create professional voiceovers for videos, podcasts, and more.",
     icon: "album",
+    link: "/features",
   },
 ];
 
@@ -115,7 +121,7 @@ export const FEATURES = [
   },
 ];
 
-// Top 10 male voices with full ElevenLabs IDs
+// 10 male voices with full ElevenLabs IDs
 export const MALE_VOICES = [
   { id: "roger", name: "Roger", gender: "male", type: "Premium", voiceId: "CwhRBWXzGAHq8TQ4Fs17" },
   { id: "charlie", name: "Charlie", gender: "male", type: "Premium", voiceId: "IKne3meq5aSn9XLyUdCD" },
@@ -129,7 +135,7 @@ export const MALE_VOICES = [
   { id: "daniel", name: "Daniel", gender: "male", type: "Premium", voiceId: "onwK4e9ZLuTAKqWW03F9" },
 ];
 
-// Top 10 female voices with full ElevenLabs IDs
+// 10 female voices with full ElevenLabs IDs
 export const FEMALE_VOICES = [
   { id: "aria", name: "Aria", gender: "female", type: "Premium", voiceId: "9BWtsMINqrJLrRacOk9x" },
   { id: "sarah", name: "Sarah", gender: "female", type: "Premium", voiceId: "EXAVITQu4vr4xnSDxMaL" },
@@ -140,7 +146,7 @@ export const FEMALE_VOICES = [
   { id: "matilda", name: "Matilda", gender: "female", type: "Premium", voiceId: "XrExE9yKIg1WjnnlVkGX" },
   { id: "jessica", name: "Jessica", gender: "female", type: "Premium", voiceId: "cgSgspJ2msm6clMCkdW9" },
   { id: "lily", name: "Lily", gender: "female", type: "Premium", voiceId: "pFZP5JQG7iQjIQuC4Bku" },
-  { id: "emma", name: "Emma", gender: "female", type: "Premium", voiceId: "custom-emma" },
+  { id: "emma", name: "Emma", gender: "female", type: "Premium", voiceId: "pMsXgVXv3BLzLGR5mLIj" },
 ];
 
 export const ALL_VOICES = [...MALE_VOICES, ...FEMALE_VOICES];
@@ -171,3 +177,46 @@ export const MODELS = [
     tag: "Legacy",
   },
 ];
+
+// Company information
+export const COMPANY_INFO = {
+  name: "VoiceForge AI",
+  mission: "To empower creators with the most natural and expressive AI voices.",
+  founded: "2023",
+  location: "San Francisco, CA",
+  team: [
+    { name: "Sarah Johnson", role: "CEO & Founder", bio: "AI voice technology pioneer with 10+ years in speech synthesis." },
+    { name: "Michael Chen", role: "CTO", bio: "Former head of speech AI at a major tech company with 15+ years experience." },
+    { name: "Aisha Patel", role: "Head of Voice Design", bio: "Voice actor and linguistic expert specializing in natural speech patterns." },
+    { name: "David Rodriguez", role: "Lead AI Engineer", bio: "PhD in computational linguistics with expertise in emotional speech synthesis." }
+  ],
+  values: [
+    "Innovation: Pushing the boundaries of what's possible in voice technology",
+    "Quality: Creating the most natural and expressive AI voices available",
+    "Accessibility: Making advanced voice technology available to everyone",
+    "Ethics: Developing responsible AI with clear disclosure of synthetic voices"
+  ]
+};
+
+// Legal information
+export const LEGAL_INFO = {
+  privacyPolicy: {
+    lastUpdated: "May 15, 2023",
+    dataCollection: "We collect voice samples, text inputs, and usage data to improve our services.",
+    dataUsage: "Your data is used to train our AI models and improve voice quality and accuracy.",
+    dataSecurity: "We implement industry-standard security measures to protect your data.",
+    cookies: "We use cookies to enhance your experience and analyze site traffic.",
+    thirdParties: "We may share anonymized data with trusted partners for research purposes.",
+    userRights: "You have the right to access, correct, and delete your personal data.",
+  },
+  termsOfService: {
+    lastUpdated: "May 15, 2023",
+    accountResponsibilities: "You are responsible for maintaining the security of your account.",
+    contentGuidelines: "Generated content must not violate copyright or create harmful impersonations.",
+    prohibitedUses: "Using our service for deception, fraud, or harassment is prohibited.",
+    intellectualProperty: "We retain rights to the AI technology, but you own your generated content.",
+    limitations: "We provide the service as-is with no guarantees of uninterrupted service.",
+    termination: "We reserve the right to terminate accounts that violate our terms.",
+    disputes: "Disputes will be resolved through arbitration in accordance with local laws.",
+  }
+};

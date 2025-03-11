@@ -6,6 +6,7 @@ import NotFound from "./pages/NotFound";
 import About from "./pages/About";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
+import Conversation from "./pages/Conversation";
 import "./App.css";
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       <Route path="/about" element={<About />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/terms" element={<Terms />} />
+      <Route path="/conversation" element={<Conversation />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

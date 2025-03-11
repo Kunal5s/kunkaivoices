@@ -1,11 +1,11 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Check, ChevronsUpDown, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { LANGUAGES } from "@/lib/constants";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface LanguageSelectorProps {
   selectedLanguage: string;
@@ -15,7 +15,14 @@ interface LanguageSelectorProps {
 
 const LanguageSelector = ({ selectedLanguage, onSelect, className }: LanguageSelectorProps) => {
   const [open, setOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const selectedLanguageObj = LANGUAGES.find((lang) => lang.id === selectedLanguage);
+
+  const filteredLanguages = searchQuery.trim() === "" 
+    ? LANGUAGES
+    : LANGUAGES.filter(lang => 
+        lang.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
 
   return (
     <div className={className}>
@@ -41,33 +48,46 @@ const LanguageSelector = ({ selectedLanguage, onSelect, className }: LanguageSel
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-full p-0 bg-background/95 backdrop-blur-lg border-white/10 max-h-[400px] overflow-y-auto">
-          <Command className="bg-transparent">
-            <CommandInput placeholder="Search language..." className="border-b-white/10" />
-            <CommandEmpty>No language found.</CommandEmpty>
-            <CommandGroup className="max-h-[360px] overflow-y-auto scrollbar-none">
-              {LANGUAGES.map((language) => (
-                <CommandItem
-                  key={language.id}
-                  value={language.id}
-                  onSelect={() => {
-                    onSelect(language.id);
-                    setOpen(false);
-                  }}
-                  className="flex items-center cursor-pointer"
-                >
-                  <span className="mr-2">{language.flag}</span>
-                  <span>{language.name}</span>
-                  <Check
+        <PopoverContent className="w-full p-0 bg-background/95 backdrop-blur-lg border-white/10 max-h-[400px]">
+          <div className="p-2">
+            <input
+              className="w-full p-2 bg-background/50 border border-white/10 rounded text-sm focus:outline-none focus:border-pink/30"
+              placeholder="Search language..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+          <ScrollArea className="max-h-[300px]">
+            {filteredLanguages.length === 0 ? (
+              <div className="py-6 text-center text-sm text-white/50">
+                No language found.
+              </div>
+            ) : (
+              <div className="py-1">
+                {filteredLanguages.map((language) => (
+                  <div
+                    key={language.id}
                     className={cn(
-                      "ml-auto h-4 w-4",
-                      selectedLanguage === language.id ? "opacity-100 text-pink" : "opacity-0"
+                      "flex items-center justify-between px-3 py-2 cursor-pointer hover:bg-pink/10",
+                      selectedLanguage === language.id && "bg-pink/5"
                     )}
-                  />
-                </CommandItem>
-              ))}
-            </CommandGroup>
-          </Command>
+                    onClick={() => {
+                      onSelect(language.id);
+                      setOpen(false);
+                    }}
+                  >
+                    <div className="flex items-center">
+                      <span className="mr-2">{language.flag}</span>
+                      <span>{language.name}</span>
+                    </div>
+                    {selectedLanguage === language.id && (
+                      <Check className="h-4 w-4 text-pink" />
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </ScrollArea>
         </PopoverContent>
       </Popover>
     </div>
