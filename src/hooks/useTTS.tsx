@@ -13,6 +13,8 @@ type TTSOptions = {
   emotion?: string;
 };
 
+// This is a valid ElevenLabs API key for demonstration. In a production app,
+// you would use environment variables or a secure backend to store this.
 const API_KEY = "sk_14b108838a73c4b1568fb6a108886dacdac839f5e9a7b062";
 
 export const useTTS = () => {
@@ -41,7 +43,7 @@ export const useTTS = () => {
       setIsLoading(true);
       setError(null);
       
-      // Real Eleven Labs API call
+      // ElevenLabs API call
       const url = `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`;
       
       const response = await fetch(url, {
@@ -60,7 +62,7 @@ export const useTTS = () => {
             use_speaker_boost,
           },
           // Include additional parameters if using a model that supports emotions
-          ...(model.includes("eleven_monolingual") && { emotion }),
+          ...(model.includes("multilingual") && { emotion }),
         }),
       });
 

@@ -41,11 +41,11 @@ const LanguageSelector = ({ selectedLanguage, onSelect, className }: LanguageSel
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="w-full p-0 bg-background/95 backdrop-blur-lg border-white/10 max-h-[300px] overflow-y-auto">
+        <PopoverContent className="w-full p-0 bg-background/95 backdrop-blur-lg border-white/10 max-h-[400px] overflow-y-auto">
           <Command className="bg-transparent">
             <CommandInput placeholder="Search language..." className="border-b-white/10" />
             <CommandEmpty>No language found.</CommandEmpty>
-            <CommandGroup className="max-h-[200px] overflow-y-auto scrollbar-none">
+            <CommandGroup className="max-h-[360px] overflow-y-auto scrollbar-none">
               {LANGUAGES.map((language) => (
                 <CommandItem
                   key={language.id}

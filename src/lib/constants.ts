@@ -1,54 +1,26 @@
+
+// Top 20 languages by global usage
 export const LANGUAGES = [
   { id: "en", name: "English", flag: "🇺🇸" },
-  { id: "hi", name: "Hindi", flag: "🇮🇳" },
-  { id: "fr", name: "French", flag: "🇫🇷" },
-  { id: "es", name: "Spanish", flag: "🇪🇸" },
-  { id: "ar", name: "Arabic", flag: "🇸🇦" },
-  { id: "ja", name: "Japanese", flag: "🇯🇵" },
   { id: "zh", name: "Chinese", flag: "🇨🇳" },
-  { id: "de", name: "German", flag: "🇩🇪" },
-  { id: "it", name: "Italian", flag: "🇮🇹" },
-  { id: "pt", name: "Portuguese", flag: "🇵🇹" },
-  { id: "ru", name: "Russian", flag: "🇷🇺" },
-  { id: "ko", name: "Korean", flag: "🇰🇷" },
-  { id: "nl", name: "Dutch", flag: "🇳🇱" },
-  { id: "tr", name: "Turkish", flag: "🇹🇷" },
-  { id: "pl", name: "Polish", flag: "🇵🇱" },
-  { id: "sv", name: "Swedish", flag: "🇸🇪" },
-  { id: "th", name: "Thai", flag: "🇹🇭" },
-  { id: "vi", name: "Vietnamese", flag: "🇻🇳" },
-  { id: "id", name: "Indonesian", flag: "🇮🇩" },
-  { id: "ms", name: "Malay", flag: "🇲🇾" },
+  { id: "hi", name: "Hindi", flag: "🇮🇳" },
+  { id: "es", name: "Spanish", flag: "🇪🇸" },
+  { id: "fr", name: "French", flag: "🇫🇷" },
+  { id: "ar", name: "Arabic", flag: "🇸🇦" },
   { id: "bn", name: "Bengali", flag: "🇧🇩" },
+  { id: "ru", name: "Russian", flag: "🇷🇺" },
+  { id: "pt", name: "Portuguese", flag: "🇵🇹" },
+  { id: "id", name: "Indonesian", flag: "🇮🇩" },
   { id: "ur", name: "Urdu", flag: "🇵🇰" },
-  { id: "fa", name: "Persian", flag: "🇮🇷" },
-  { id: "ta", name: "Tamil", flag: "🇱🇰" },
-  { id: "te", name: "Telugu", flag: "🇮🇳" },
-  { id: "mr", name: "Marathi", flag: "🇮🇳" },
-  { id: "gu", name: "Gujarati", flag: "🇮🇳" },
-  { id: "kn", name: "Kannada", flag: "🇮🇳" },
-  { id: "ml", name: "Malayalam", flag: "🇮🇳" },
-  { id: "pa", name: "Punjabi", flag: "🇮🇳" },
-  { id: "ro", name: "Romanian", flag: "🇷🇴" },
-  { id: "el", name: "Greek", flag: "🇬🇷" },
-  { id: "hu", name: "Hungarian", flag: "🇭🇺" },
-  { id: "cs", name: "Czech", flag: "🇨🇿" },
-  { id: "uk", name: "Ukrainian", flag: "🇺🇦" },
-  { id: "hr", name: "Croatian", flag: "🇭🇷" },
-  { id: "sk", name: "Slovak", flag: "🇸🇰" },
-  { id: "bg", name: "Bulgarian", flag: "🇧🇬" },
-  { id: "da", name: "Danish", flag: "🇩🇰" },
-  { id: "fi", name: "Finnish", flag: "🇫🇮" },
-  { id: "no", name: "Norwegian", flag: "🇳🇴" },
-  { id: "he", name: "Hebrew", flag: "🇮🇱" },
-  { id: "si", name: "Sinhala", flag: "🇱🇰" },
-  { id: "ka", name: "Georgian", flag: "🇬🇪" },
-  { id: "az", name: "Azerbaijani", flag: "🇦🇿" },
-  { id: "lt", name: "Lithuanian", flag: "🇱🇹" },
-  { id: "et", name: "Estonian", flag: "🇪🇪" },
-  { id: "lv", name: "Latvian", flag: "🇱🇻" },
-  { id: "sr", name: "Serbian", flag: "🇷🇸" },
-  { id: "sl", name: "Slovenian", flag: "🇸🇮" },
+  { id: "ja", name: "Japanese", flag: "🇯🇵" },
+  { id: "de", name: "German", flag: "🇩🇪" },
+  { id: "tr", name: "Turkish", flag: "🇹🇷" },
+  { id: "ko", name: "Korean", flag: "🇰🇷" },
+  { id: "vi", name: "Vietnamese", flag: "🇻🇳" },
+  { id: "ta", name: "Tamil", flag: "🇮🇳" },
+  { id: "it", name: "Italian", flag: "🇮🇹" },
+  { id: "th", name: "Thai", flag: "🇹🇭" },
+  { id: "pl", name: "Polish", flag: "🇵🇱" },
 ];
 
 export const EMOTIONS = [
@@ -70,7 +42,7 @@ export const SERVICES = [
   {
     id: "voice-generation",
     title: "AI Voice Generation",
-    description: "Generate human-like voices in 50+ languages with advanced AI technology.",
+    description: "Generate human-like voices in 20+ languages with advanced AI technology.",
     icon: "mic",
   },
   {
@@ -113,8 +85,8 @@ export const FEATURES = [
   },
   {
     id: "multi-language",
-    title: "50+ Languages Support",
-    description: "Generate natural voices in over 50 languages and accents.",
+    title: "20+ Languages Support",
+    description: "Generate natural voices in over 20 languages and accents.",
   },
   {
     id: "voice-cloning",
@@ -143,6 +115,7 @@ export const FEATURES = [
   },
 ];
 
+// Top 10 male voices with full ElevenLabs IDs
 export const MALE_VOICES = [
   { id: "roger", name: "Roger", gender: "male", type: "Premium", voiceId: "CwhRBWXzGAHq8TQ4Fs17" },
   { id: "charlie", name: "Charlie", gender: "male", type: "Premium", voiceId: "IKne3meq5aSn9XLyUdCD" },
@@ -154,18 +127,9 @@ export const MALE_VOICES = [
   { id: "chris", name: "Chris", gender: "male", type: "Premium", voiceId: "iP95p4xoKVk53GoZ742B" },
   { id: "brian", name: "Brian", gender: "male", type: "Premium", voiceId: "nPczCjzI2devNBz1zQrb" },
   { id: "daniel", name: "Daniel", gender: "male", type: "Premium", voiceId: "onwK4e9ZLuTAKqWW03F9" },
-  { id: "bill", name: "Bill", gender: "male", type: "Premium", voiceId: "pqHfZKP75CvOlQylNhV4" },
-  { id: "james", name: "James", gender: "male", type: "Premium", voiceId: "custom-james" },
-  { id: "michael", name: "Michael", gender: "male", type: "Premium", voiceId: "custom-michael" },
-  { id: "robert", name: "Robert", gender: "male", type: "Premium", voiceId: "custom-robert" },
-  { id: "david", name: "David", gender: "male", type: "Premium", voiceId: "custom-david" },
-  { id: "joseph", name: "Joseph", gender: "male", type: "Premium", voiceId: "custom-joseph" },
-  { id: "thomas", name: "Thomas", gender: "male", type: "Premium", voiceId: "custom-thomas" },
-  { id: "andrew", name: "Andrew", gender: "male", type: "Premium", voiceId: "custom-andrew" },
-  { id: "kevin", name: "Kevin", gender: "male", type: "Premium", voiceId: "custom-kevin" },
-  { id: "matthew", name: "Matthew", gender: "male", type: "Premium", voiceId: "custom-matthew" },
 ];
 
+// Top 10 female voices with full ElevenLabs IDs
 export const FEMALE_VOICES = [
   { id: "aria", name: "Aria", gender: "female", type: "Premium", voiceId: "9BWtsMINqrJLrRacOk9x" },
   { id: "sarah", name: "Sarah", gender: "female", type: "Premium", voiceId: "EXAVITQu4vr4xnSDxMaL" },
@@ -177,16 +141,6 @@ export const FEMALE_VOICES = [
   { id: "jessica", name: "Jessica", gender: "female", type: "Premium", voiceId: "cgSgspJ2msm6clMCkdW9" },
   { id: "lily", name: "Lily", gender: "female", type: "Premium", voiceId: "pFZP5JQG7iQjIQuC4Bku" },
   { id: "emma", name: "Emma", gender: "female", type: "Premium", voiceId: "custom-emma" },
-  { id: "olivia", name: "Olivia", gender: "female", type: "Premium", voiceId: "custom-olivia" },
-  { id: "ava", name: "Ava", gender: "female", type: "Premium", voiceId: "custom-ava" },
-  { id: "sophia", name: "Sophia", gender: "female", type: "Premium", voiceId: "custom-sophia" },
-  { id: "isabella", name: "Isabella", gender: "female", type: "Premium", voiceId: "custom-isabella" },
-  { id: "mia", name: "Mia", gender: "female", type: "Premium", voiceId: "custom-mia" },
-  { id: "amelia", name: "Amelia", gender: "female", type: "Premium", voiceId: "custom-amelia" },
-  { id: "harper", name: "Harper", gender: "female", type: "Premium", voiceId: "custom-harper" },
-  { id: "evelyn", name: "Evelyn", gender: "female", type: "Premium", voiceId: "custom-evelyn" },
-  { id: "abigail", name: "Abigail", gender: "female", type: "Premium", voiceId: "custom-abigail" },
-  { id: "victoria", name: "Victoria", gender: "female", type: "Premium", voiceId: "custom-victoria" },
 ];
 
 export const ALL_VOICES = [...MALE_VOICES, ...FEMALE_VOICES];
@@ -195,7 +149,7 @@ export const MODELS = [
   {
     id: "eleven_multilingual_v2",
     name: "Eleven Multilingual v2",
-    description: "Our most life-like, emotionally rich model in 29 languages.",
+    description: "Our most life-like, emotionally rich model in 20+ languages.",
     tag: "Premium",
   },
   {

@@ -16,7 +16,7 @@ const Footer = () => {
               <span className="text-xl font-bold text-gradient">VocalAI</span>
             </div>
             <p className="text-white/70 text-sm mb-4">
-              Experience our next-generation AI voice technology with 50+ languages, 40+ premium voices, and cutting-edge voice customization. Create human-like speech for content, gaming, business, and more.
+              Experience our next-generation AI voice technology with 20+ languages, premium voices, and cutting-edge voice customization. Create human-like speech for content, gaming, business, and more.
             </p>
             <div className="flex space-x-4">
               <a href="https://twitter.com/vocalai" target="_blank" rel="noopener noreferrer">
@@ -99,32 +99,32 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/careers" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/about#careers" className="text-white/70 hover:text-white text-sm transition-colors">
                   Careers
                 </Link>
               </li>
               <li>
-                <Link to="/blog" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/about#blog" className="text-white/70 hover:text-white text-sm transition-colors">
                   Blog
                 </Link>
               </li>
               <li>
-                <Link to="/press" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/about#press" className="text-white/70 hover:text-white text-sm transition-colors">
                   Press Kit
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/about#contact" className="text-white/70 hover:text-white text-sm transition-colors">
                   Contact
                 </Link>
               </li>
               <li>
-                <Link to="/partners" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/about#partners" className="text-white/70 hover:text-white text-sm transition-colors">
                   Partners
                 </Link>
               </li>
               <li>
-                <Link to="/investors" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/about#investors" className="text-white/70 hover:text-white text-sm transition-colors">
                   Investors
                 </Link>
               </li>
@@ -145,27 +145,27 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/security" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/privacy#security" className="text-white/70 hover:text-white text-sm transition-colors">
                   Security
                 </Link>
               </li>
               <li>
-                <Link to="/gdpr" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/privacy#gdpr" className="text-white/70 hover:text-white text-sm transition-colors">
                   GDPR Compliance
                 </Link>
               </li>
               <li>
-                <Link to="/support" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/about#support" className="text-white/70 hover:text-white text-sm transition-colors">
                   Support Center
                 </Link>
               </li>
               <li>
-                <Link to="/api-docs" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/features#api" className="text-white/70 hover:text-white text-sm transition-colors">
                   API Documentation
                 </Link>
               </li>
               <li>
-                <Link to="/faq" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/about#faq" className="text-white/70 hover:text-white text-sm transition-colors">
                   FAQs
                 </Link>
               </li>
@@ -175,16 +175,13 @@ const Footer = () => {
 
         <div className="mt-12 pt-6 border-t border-white/10">
           <div className="text-white/70 text-sm mb-6">
-            <h5 className="font-medium mb-2">Available Languages (50+)</h5>
+            <h5 className="font-medium mb-2">Available Languages (20+)</h5>
             <div className="flex flex-wrap gap-2">
-              {LANGUAGES.slice(0, 15).map((lang) => (
+              {LANGUAGES.map((lang) => (
                 <span key={lang.id} className="inline-flex items-center" title={lang.name}>
                   {lang.flag}
                 </span>
               ))}
-              <Link to="/languages" className="text-white/50 hover:text-white transition-colors">
-                +{LANGUAGES.length - 15} more
-              </Link>
             </div>
           </div>
         </div>
@@ -201,17 +198,17 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/privacy" className="text-white/70 hover:text-white text-sm transition-colors">
+                <Link to="/privacy" className="text-white/50 hover:text-white text-sm transition-colors">
                   Privacy
                 </Link>
               </li>
               <li>
-                <Link to="/cookies" className="text-white/50 hover:text-white text-sm transition-colors">
+                <Link to="/privacy#cookies" className="text-white/50 hover:text-white text-sm transition-colors">
                   Cookies
                 </Link>
               </li>
               <li>
-                <Link to="/accessibility" className="text-white/50 hover:text-white text-sm transition-colors">
+                <Link to="/about#accessibility" className="text-white/50 hover:text-white text-sm transition-colors">
                   Accessibility
                 </Link>
               </li>
